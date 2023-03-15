@@ -12,7 +12,7 @@ function Footer(){
             <h3>Hábitos</h3>
             <div >
                 <CircularProgressbar value={percentage} text={`Hoje`} 
-                styles={buildStyles({    pathColor: `rgba(255, 255, 255, 1)`,
+                styles={ buildStyles({   pathColor: `rgba(255, 255, 255, 1)`,
                 textColor: 'white',
                 trailColor: '#52B6FF'})}/>
             </div>
@@ -36,6 +36,8 @@ const RodaPe = styled.footer`
     position: fixed;
     bottom: 0px;
     h3 {
+        margin-left: 40px;
+        margin-right: 40px;
         font-family: 'Lexend Deca';
         font-style: normal;
         font-weight: 400;
@@ -49,5 +51,6 @@ const RodaPe = styled.footer`
         height: 91px;
         border-radius: 50%;
         background-color:#52B6FF;
+        margin-bottom: 50px;
     }
 `
