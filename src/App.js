@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import styled from "styled-components";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Habits from "./pages/Habits";
+import Habits from "./pages/Habits/Habits";
 import Historic from "./pages/Historic"
 import Today from "./pages/Today"
 
