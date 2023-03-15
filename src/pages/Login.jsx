@@ -37,6 +37,8 @@ function Login(){
 export default Login;
 
 const PageContainer = styled.div`
+    background: #FFFFFF;
+    height: 100vw;
     display: flex;
     flex-direction: column;
     text-align: center;

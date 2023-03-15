@@ -53,6 +53,8 @@ function Register(){
 export default Register;
 
 const PageContainer = styled.div`
+    background: #FFFFFF;
+    height: 100vw;
     display: flex;
     flex-direction: column;
     text-align: center;

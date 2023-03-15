@@ -19,7 +19,6 @@ function Habits(){
 export default Habits;
 
 const HabitsContainer = styled.div`
-    background-color: #E5E5E5;
     width: 100vw;
     height: 100vh;
     display: flex;

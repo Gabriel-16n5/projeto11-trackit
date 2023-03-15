@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyled = createGlobalStyle`
+body{
+	background-color: #E5E5E5;
+}
 input {
 		background: #FFFFFF;
 		border: 1px solid #D5D5D5;
