@@ -1,9 +1,12 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
+import MyContext from "../context/MyContext.ts"
 
 function Login(){
+    const {user, setUser, pass, setPass} = useContext(MyContext)
     return(
+        
     <PageContainer>
         <>
             <img src={logo} alt="Logo" />

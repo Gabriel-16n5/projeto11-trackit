@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
+import MyContext from "../context/MyContext.ts"
 
 function Register(){
+    const {user, setUser, pass, setPass, name, setName, photo, setPhoto} = useContext(MyContext)
     return(
     <PageContainer>
         <>
@@ -12,18 +14,26 @@ function Register(){
         <FormContainer>
             <input
             placeholder="email"
+            value={user}
+            onChange={(e) => {setUser(e.target.value)}}
             />
 
             <input
             placeholder="senha"
+            value={pass}
+            onChange={(e) => {setPass(e.target.value)}}
             />
 
             <input
             placeholder="nome"
+            value={name}
+            onChange={(e) => {setName(e.target.value)}}
             />
 
             <input
             placeholder="foto"
+            value={photo}
+            onChange={(e) => {setPhoto(e.target.value)}}
             />
 
             <button>
