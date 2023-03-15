@@ -1,11 +1,21 @@
 import styled from "styled-components";
 import React from "react";
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 function Footer(){
+    const percentage = 66;
+
+
     return(
         <RodaPe>
             <h3>Hábitos</h3>
-            <p>Hoje</p>
+            <div >
+                <CircularProgressbar value={percentage} text={`Hoje`} 
+                styles={buildStyles({    pathColor: `rgba(255, 255, 255, 1)`,
+                textColor: 'white',
+                trailColor: '#52B6FF'})}/>
+            </div>
             <h3>Histórico</h3>
         </RodaPe>
     )
@@ -34,9 +44,10 @@ const RodaPe = styled.footer`
         text-align: center;
         color: #52B6FF;
     }
-    p{
+    div{
         width: 91px;
         height: 91px;
         border-radius: 50%;
+        background-color:#52B6FF;
     }
 `
