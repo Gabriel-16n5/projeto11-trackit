@@ -3,8 +3,11 @@ import React from "react"
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import styled from 'styled-components';
+import { FaCheck } from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 function Today(){
+    
     let now = dayjs().format('dddd, DD/MM');
     return(
         <>
@@ -13,6 +16,14 @@ function Today(){
                 <h1>{now}</h1>
                 <h2>Nenhum hábito concluído ainda</h2>
             </Hoje>
+            <HabitContainer>
+                <div>
+                    <h3>Ler 1 capítulo de livro</h3>
+                    <h4>Sequência atual: 3 dias</h4>
+                    <h4>Seu recorde: 5 dias</h4>
+                </div>
+                <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button><FaCheck /></button></IconContext.Provider>
+            </HabitContainer>
         <Footer />
         </>
     )
@@ -42,5 +53,44 @@ h2{
     font-size: 17.976px;
     line-height: 22px;
     color: #BABABA;
+}
+`
+
+const HabitContainer = styled.div`
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 85vw;
+    height:13vh;
+    background: #FFFFFF;
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-top: 15px;
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 69px;
+    height: 69px;
+    left: 276px;
+    top: 190px;
+    background: #EBEBEB;
+    border: 1px solid #E7E7E7;
+    border-radius: 5px;
+}
+h3{
+    font-family: 'Lexend Deca';
+    font-size: 20px;
+    line-height: 25px;
+    color: #666666;
+    margin-bottom: 15px;
+}
+h4{
+    font-family: 'Lexend Deca';
+    font-size: 13px;
+    line-height: 16px;
+    color: #666666;
 }
 `
