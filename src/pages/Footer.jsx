@@ -1,18 +1,20 @@
 import styled from "styled-components";
-import React from "react";
+import MyContext from "../context/MyContext.ts"
+import React, { useContext } from "react"
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from "react-router-dom";
 
 function Footer(){
-    const percentage = 66;
+    const {progress, setProgress} = useContext(MyContext)
+    
 
 
     return(
         <RodaPe>
             <Link to="/habitos"><h3>Hábitos</h3></Link>
             <Link to="/hoje"><div >
-                <CircularProgressbar value={percentage} text={`Hoje`} 
+                <CircularProgressbar value={progress} text={`Hoje`} 
                 styles={ buildStyles({   pathColor: `rgba(255, 255, 255, 1)`,
                 textColor: 'white',
                 trailColor: '#52B6FF'})}/>

@@ -2,17 +2,36 @@ import React, { useContext } from "react"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
 import MyContext from "../context/MyContext.ts"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 function Register(){
+    const navigate = useNavigate();
     const {user, setUser, pass, setPass, name, setName, photo, setPhoto} = useContext(MyContext)
+    
+    function cadastrar(e){
+       e.preventDefault();
+
+        const body = {
+            email: `${user}`,
+            name: `${name}`,
+            image: `${photo}`,
+            password: `${pass}`
+        }
+
+       const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
+       promise.then((ok) => navigate("/"));
+       promise.catch((erro) => console.log(erro.message));
+       promise.catch(() => alert("Deu ruim"));
+    }
+
     return(
     <PageContainer>
         <>
             <img src={logo} alt="Logo" />
             <h1>TrackIt</h1>
         </>
-        <FormContainer>
+        <FormContainer onSubmit={cadastrar}>
             <input
             placeholder="email"
             value={user}
@@ -37,7 +56,7 @@ function Register(){
             onChange={(e) => {setPhoto(e.target.value)}}
             />
 
-            <button>
+            <button type="submit">
                 Cadastrar
             </button>
 

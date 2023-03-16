@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import MyContext from "../context/MyContext.ts"
+import React, { useContext } from "react"
 
 function NavBar(){
+    const {photo} = useContext(MyContext)
     return(
         <Header>
             <a>TrackIt</a>
-            <img src="https://media.discordapp.net/attachments/551138705180721167/1085360159800447027/image.png?width=415&height=468" alt="foto perfil" />
+            <img src={photo} alt="foto perfil" />
         </Header>
     )
 }

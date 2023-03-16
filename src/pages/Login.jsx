@@ -1,11 +1,31 @@
+import axios from "axios"
 import React, { useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
 import MyContext from "../context/MyContext.ts"
 
 function Login(){
-    const {user, setUser, pass, setPass} = useContext(MyContext)
+    const navigate = useNavigate();
+    const {user, setUser, pass, setPass, setPhoto} = useContext(MyContext)
+
+    function fazerLogin(e){
+        e.preventDefault();
+
+        const body = {
+            email: `${user}`,
+            password: `${pass}`
+        }
+
+       const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
+       promise.then((ok) => {
+            setPhoto(ok.data.image)
+            navigate("/hoje")
+       });
+       promise.catch((erro) => console.log(erro.message));
+       promise.catch(() => alert("Deu ruim"));
+    }
+
     return(
         
     <PageContainer>
@@ -13,16 +33,20 @@ function Login(){
             <img src={logo} alt="Logo" />
             <h1>TrackIt</h1>
         </>
-        <FormContainer>
+        <FormContainer onSubmit={fazerLogin}>
             <input
             placeholder="email"
+            value={user}
+            onChange={(e) => {setUser(e.target.value)}}
             />
 
             <input
             placeholder="senha"
+            value={pass}
+            onChange={(e) => {setPass(e.target.value)}}
             />
 
-            <button>
+            <button type="submit">
                 Entrar
             </button>
             <h5>
