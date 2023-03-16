@@ -7,7 +7,7 @@ import MyContext from "../context/MyContext.ts"
 
 function Login(){
     const navigate = useNavigate();
-    const {user, setUser, pass, setPass, setPhoto} = useContext(MyContext)
+    const {user, setUser, pass, setPass, setPhoto, setToken, token} = useContext(MyContext)
 
     function fazerLogin(e){
         e.preventDefault();
@@ -20,6 +20,7 @@ function Login(){
        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
        promise.then((ok) => {
             setPhoto(ok.data.image)
+            setToken(ok.data.token)
             navigate("/hoje")
        });
        promise.catch((erro) => console.log(erro.message));

@@ -1,13 +1,33 @@
 import dayjs from 'dayjs';
-import React from "react"
+import MyContext from "../context/MyContext.ts"
+import React, { useContext, useEffect } from "react"
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import styled from 'styled-components';
 import { FaCheck } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import axios from 'axios';
 
 function Today(){
+    const {token} = useContext(MyContext)
+    const [habits, setHabits] = React.useState([])
     
+    useEffect(() =>{
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+        promise.then((ok) => {
+            console.log(ok.data)
+            setHabits(ok.data)
+        })
+
+        promise.catch((erro) => console.log(erro.response.data))
+
+    }, [])
+
+
     let now = dayjs().format('dddd, DD/MM');
     return(
         <>
