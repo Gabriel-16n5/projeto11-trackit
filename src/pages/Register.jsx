@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
 import MyContext from "../context/MyContext.ts"
+import { Link } from "react-router-dom"
 
 function Register(){
     const {user, setUser, pass, setPass, name, setName, photo, setPhoto} = useContext(MyContext)
@@ -41,7 +42,7 @@ function Register(){
             </button>
 
             <h5>
-                Já tem uma conta? Faça login!
+                <Link to="/">Já tem uma conta? Faça login!</Link>
             </h5>
         </FormContainer>
 

@@ -1,4 +1,5 @@
 import React, { useContext } from "react"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
 import MyContext from "../context/MyContext.ts"
@@ -25,7 +26,7 @@ function Login(){
                 Entrar
             </button>
             <h5>
-                Não tem uma conta? Cadastre-se!
+               <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link> 
             </h5>
         </FormContainer>
 
