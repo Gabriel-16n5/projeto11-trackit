@@ -1,21 +1,38 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import styled from "styled-components";
 import CreateHabit from "./CreateHabit";
 import MyContext from "../MyContext.ts"
+import axios from "axios";
+import HabitsCreated from "./HabitsCreated";
 
 function MyHabits(){
-    const {setCreateHabit} = useContext(MyContext)
+    const {setCreateHabit, token, habitList, createHabit, setHabitList} = useContext(MyContext)
 
-    function createHabit(){
+
+    useEffect(() => {
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+        promise.then((ok) => {
+            setHabitList(ok.data)
+            console.log(habitList)
+            
+        })
+        promise.catch((erro) => console.log(erro.response.data))
+    }, [])
+
+
+    function createHabits(){
         setCreateHabit("create")
     }
-
     return(
         <>
             <MyHabitsContainer>
-                <h2>Meus hábitos</h2>
-                <button onClick={() => createHabit()} data-test="habit-create-btn">+</button>
+                    <h2>Meus hábitos</h2>
+                    <button onClick={() => createHabits()} data-test="habit-create-btn">+</button>
             </MyHabitsContainer>
+            {habitList === undefined ? "" : <HabitsCreated />}
         </>
     )
 }

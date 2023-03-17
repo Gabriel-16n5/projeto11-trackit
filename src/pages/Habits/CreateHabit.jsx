@@ -25,6 +25,7 @@ function CreateHabit(){
         setWait(!wait)
         if(habitName === ""){
             alert("Não pode ser vazio")
+            setWait(false)
             return;
         }
         const config = {
@@ -38,6 +39,7 @@ function CreateHabit(){
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         promise.then((ok) => {
+            console.log(ok.data)
             setHabitList(ok.data)
             setCreateHabit(undefined)
         })

@@ -3,23 +3,38 @@ import React, { useContext, useEffect } from "react"
 import MyContext from "../MyContext.ts"
 import { FaTrashAlt} from "react-icons/fa";
 import { IconContext } from "react-icons";
-
+import axios from "axios";
 
 export default function HabitsCreated(){
-    const {habitList} = useContext(MyContext)
+    const {habitList, token} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
+
+
+
+    // useEffect(() => {
+    //     const config = {
+    //         headers: { Authorization: `Bearer ${token}`}
+    //     }
+    //     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+    //     promise.then((ok) => console.log(ok.data))
+    //     promise.catch((erro) => console.log(erro.response.data))
+    // }, [])
+
+
 
     if(habitList === undefined){
         console.log(habitList)
     }else{
         return(
             <>
+            {habitList.map((a) => 
                 <HabitsContainer data-test="habit-container">
-                    <Title><h1 data-test="habit-name">{habitList.name}</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
+                    <Title><h1 data-test="habit-name">{a.name}</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
                     <Botoes>
-                            {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={habitList.days.includes(index)} key={index} >{d}</Buttons>)}
+                            {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={a.days.includes(index)} key={index} >{d}</Buttons>)}
                     </Botoes>
                 </HabitsContainer>
+                )}
             </>
         )
 
