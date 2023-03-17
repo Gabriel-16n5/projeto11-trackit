@@ -7,7 +7,13 @@ function CreateHabit(){
     const {habitName, setHabitName, habitDays, setHabitDays, token, setHabitList, setCreateHabit} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
     function marcaDIa(index){
-        setHabitDays([...habitDays, index])
+        console.log(index)
+        console.log(habitDays)
+        if(habitDays.includes(index)){
+            setHabitDays([])
+        }else{
+            setHabitDays([...habitDays, index])
+        }
     }
 
     function createHabit(e){
