@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import axios from "axios"
 import React, { useContext } from "react"
-import MyContext from "/home/gabriel16n5/Desktop/projetinhos/projeto11-trackit/src/pages/MyContext.ts";
+import MyContext from "../MyContext.ts"
 
 function CreateHabit(){
     const {habitName, setHabitName, habitDays, setHabitDays} = useContext(MyContext)
