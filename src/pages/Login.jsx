@@ -4,15 +4,16 @@ import MyContext from "./MyContext.ts"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
-
+import { ProgressBar } from "react-loader-spinner"
 
 function Login(){
+    const [wait, setWait] = React.useState(false);
     const navigate = useNavigate();
     const {user, setUser, pass, setPass, setPhoto, setToken} = useContext(MyContext)
 
     function fazerLogin(e){
         e.preventDefault();
-
+        setWait(!wait)
         const body = {
             email: `${user}`,
             password: `${pass}`
@@ -24,8 +25,11 @@ function Login(){
             setToken(ok.data.token)
             navigate("/hoje")
        });
-       promise.catch((erro) => console.log(erro.message));
-       promise.catch(() => alert("Deu ruim"));
+       promise.catch((erro) => {
+        alert("Deu ruim")
+        setWait(false);
+        console.log(erro.message)
+    });
     }
 
     return(
@@ -38,18 +42,20 @@ function Login(){
         <FormContainer onSubmit={fazerLogin}>
             <input data-test="email-input"
             placeholder="email"
+            disabled={wait}
             value={user}
             onChange={(e) => {setUser(e.target.value)}}
             />
 
             <input data-test="password-input"
             placeholder="senha"
+            disabled={wait}
             value={pass}
             onChange={(e) => {setPass(e.target.value)}}
             />
 
-            <button data-test="login-btn" type="submit">
-                Entrar
+            <button disabled={wait} data-test="login-btn" type="submit">
+            {wait === true ? <ProgressBar barColor='white'/>: "Entrar"}
             </button>
             <h5 data-test="singup-link">
                <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link> 
