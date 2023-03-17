@@ -4,25 +4,30 @@ import logo from "../assets/Logo.PNG"
 import MyContext from "./MyContext.ts"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
+import { ProgressBar } from "react-loader-spinner"
 
 function Register(){
+    const [wait, setWait] = React.useState(false);
     const navigate = useNavigate();
     const {user, setUser, pass, setPass, name, setName, photo, setPhoto} = useContext(MyContext)
     
     function cadastrar(e){
        e.preventDefault();
-
+        setWait(!wait)
         const body = {
             email: `${user}`,
             name: `${name}`,
             image: `${photo}`,
             password: `${pass}`
         }
-
        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
+
        promise.then((ok) => navigate("/"));
-       promise.catch((erro) => console.log(erro.message));
-       promise.catch(() => alert("Deu ruim"));
+       promise.catch((erro) => {
+        alert("Deu ruim");
+        setWait(false);
+        console.log(erro.message)
+       });
     }
 
     return(
@@ -34,35 +39,40 @@ function Register(){
         <FormContainer onSubmit={cadastrar}>
             <input data-test="email-input"
             placeholder="email"
+            disabled={wait}
             value={user}
             onChange={(e) => {setUser(e.target.value)}}
             />
 
             <input data-test="password-input"
             placeholder="senha"
+            disabled={wait}
             value={pass}
             onChange={(e) => {setPass(e.target.value)}}
             />
 
             <input data-test="user-name-input"
             placeholder="nome"
+            disabled={wait}
             value={name}
             onChange={(e) => {setName(e.target.value)}}
             />
 
             <input data-test="user-image-input"
             placeholder="foto"
+            disabled={wait}
             value={photo}
             onChange={(e) => {setPhoto(e.target.value)}}
             />
 
-            <button type="submit" data-test="signup-btn">
-                Cadastrar
+            <button disabled={wait} type="submit" data-test="signup-btn">
+                {wait === true ? <ProgressBar barColor='white'/>: "Cadastrar"}
             </button>
 
             <h5 data-test="login-link">
                 <Link to="/">Já tem uma conta? Faça login!</Link>
             </h5>
+            
         </FormContainer>
 
 
