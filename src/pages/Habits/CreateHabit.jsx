@@ -8,6 +8,10 @@ function CreateHabit(){
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
     const [wait, setWait] = React.useState(false);
 
+    function cancel(){
+        setCreateHabit(undefined);
+    }
+
     function marcaDIa(index){
         if(habitDays.includes(index)){
             setHabitDays([])
@@ -21,6 +25,7 @@ function CreateHabit(){
         setWait(!wait)
         if(habitName === ""){
             alert("Não pode ser vazio")
+            return;
         }
         const config = {
             headers: { Authorization: `Bearer ${token}`}
@@ -50,7 +55,6 @@ function CreateHabit(){
         <CreateHabitContainer data-test="habit-create-container" onSubmit={createHabit} >
                 <input data-test="habit-name-input"
                 placeholder="nome do hábito"
-                required
                 disabled={wait}
                 value={habitName}
                 onChange={(e) => {setHabitName(e.target.value)}}
@@ -59,7 +63,7 @@ function CreateHabit(){
                         {diasDaSemana.map((d, index) => <Buttons type="button" disabled={wait} data-test="habit-day" bt={habitDays.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
                     </Botoes>
                     <div>
-                        <Confirma disabled={wait} data-test="habit-create-cancel-btn" color={"white"} letra={"#52B6FF"}>Cancelar</Confirma>
+                        <Confirma disabled={wait} data-test="habit-create-cancel-btn" color={"white"} letra={"#52B6FF"} onClick={() => cancel()}>Cancelar</Confirma>
                         <Confirma disabled={wait} type="submit" data-test="habit-create-save-btn" color={"#52B6FF;"} letra={"white"} >Salvar</Confirma>
                     </div>
         </CreateHabitContainer>
