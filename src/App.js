@@ -15,8 +15,9 @@ function App() {
   const [photo, setPhoto] = React.useState("");
   const [progress, setProgress] = React.useState(50);
   const [token, setToken] = React.useState("");
+  const [habit, setHabit] = React.useState("");
   return (
-    <MyContext.Provider value={{ user, setUser, pass, setPass, name, setName, photo, setPhoto, progress, setProgress, token, setToken }}>
+    <MyContext.Provider value={{ user, setUser, pass, setPass, name, setName, photo, setPhoto, progress, setProgress, token, setToken, habit, setHabit }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />

@@ -22,9 +22,7 @@ function CreateHabit(){
                     </div>
         </CreateHabitContainer>
 
-        <SemNada>
-            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-        </SemNada>
+
      </>
     )
 }
@@ -49,6 +47,8 @@ const Confirma = styled.button`
 `
 
 const Botoes = styled.span`
+    margin-left: 20px;
+    margin-bottom: 15px;
     display:flex;
     flex-direction: row;
 `
@@ -69,24 +69,19 @@ const Buttons = styled.span`
         color: #DBDBDB;
 `
 
-const SemNada = styled.h6`
-    /* display: none; */
-    font-family: 'Lexend Deca';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #666666;
-    margin-top: 10px;
-    margin-left: 5vw;
-`
+
 
 const CreateHabitContainer = styled.form`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 90vw;
-    height: 20vh;
+    height: 30vh;
     background: #FFFFFF;
     border-radius: 5px;
 input{
+    margin-left: 20px;
+    width: 75vw;
     border: 2px solid #DBDBDB;
     border-radius: 5px;
     font-family: 'Lexend Deca';
@@ -96,6 +91,7 @@ input{
     color: #666666;
 }
 div{
+    
     display:flex;
     flex-direction: row;
     justify-content: flex-end
