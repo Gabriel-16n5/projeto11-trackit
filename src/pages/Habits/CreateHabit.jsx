@@ -6,9 +6,9 @@ import MyContext from "../MyContext.ts"
 function CreateHabit(){
     const {habitName, setHabitName, habitDays, setHabitDays, token, setHabitList, setCreateHabit} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
+    const [wait, setWait] = React.useState(false);
+
     function marcaDIa(index){
-        console.log(index)
-        console.log(habitDays)
         if(habitDays.includes(index)){
             setHabitDays([])
         }else{
@@ -18,7 +18,10 @@ function CreateHabit(){
 
     function createHabit(e){
         e.preventDefault();
-        setCreateHabit(undefined)
+        setWait(!wait)
+        if(habitName === ""){
+            alert("Não pode ser vazio")
+        }
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         }
@@ -31,33 +34,35 @@ function CreateHabit(){
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         promise.then((ok) => {
             setHabitList(ok.data)
+            setCreateHabit(undefined)
         })
 
-        promise.catch((erro) => console.log(erro.response.data))
+        promise.catch((erro) => {
+            console.log(erro.response.data)
+            setCreateHabit(undefined)
+        })
         console.log(body)
     }
 
 
 
     return(
-    <>
-        <CreateHabitContainer onSubmit={createHabit} data-test="habit-create-container">
+        <CreateHabitContainer data-test="habit-create-container" onSubmit={createHabit} >
                 <input data-test="habit-name-input"
-                placeholder="nome do hábito" 
+                placeholder="nome do hábito"
+                required
+                disabled={wait}
                 value={habitName}
                 onChange={(e) => {setHabitName(e.target.value)}}
                 />
-                    <Botoes>
-                        {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={habitDays.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
+                    <Botoes >
+                        {diasDaSemana.map((d, index) => <Buttons type="button" disabled={wait} data-test="habit-day" bt={habitDays.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
                     </Botoes>
                     <div>
-                        <Confirma data-test="habit-create-cancel-btn" color={"white"} letra={"#52B6FF"}>Cancelar</Confirma>
-                        <Confirma type="submit" data-test="habit-create-save-btn" color={"#52B6FF;"} letra={"white"} >Salvar</Confirma>
+                        <Confirma disabled={wait} data-test="habit-create-cancel-btn" color={"white"} letra={"#52B6FF"}>Cancelar</Confirma>
+                        <Confirma disabled={wait} type="submit" data-test="habit-create-save-btn" color={"#52B6FF;"} letra={"white"} >Salvar</Confirma>
                     </div>
         </CreateHabitContainer>
-
-
-     </>
     )
 }
 
@@ -86,7 +91,7 @@ const Botoes = styled.span`
     display:flex;
     flex-direction: row;
 `
-const Buttons = styled.span`
+const Buttons = styled.button`
         display:flex;
         flex-direction: row;
         width: 30px;
@@ -101,6 +106,7 @@ const Buttons = styled.span`
         font-size: 20px;
         line-height: 25px;
         color: #DBDBDB;
+        
 `
 
 
