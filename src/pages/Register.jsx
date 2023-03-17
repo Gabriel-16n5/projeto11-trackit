@@ -32,35 +32,35 @@ function Register(){
             <h1>TrackIt</h1>
         </>
         <FormContainer onSubmit={cadastrar}>
-            <input
+            <input data-test="email-input"
             placeholder="email"
             value={user}
             onChange={(e) => {setUser(e.target.value)}}
             />
 
-            <input
+            <input data-test="password-input"
             placeholder="senha"
             value={pass}
             onChange={(e) => {setPass(e.target.value)}}
             />
 
-            <input
+            <input data-test="user-name-input"
             placeholder="nome"
             value={name}
             onChange={(e) => {setName(e.target.value)}}
             />
 
-            <input
+            <input data-test="user-image-input"
             placeholder="foto"
             value={photo}
             onChange={(e) => {setPhoto(e.target.value)}}
             />
 
-            <button type="submit">
+            <button type="submit" data-test="signup-btn">
                 Cadastrar
             </button>
 
-            <h5>
+            <h5 data-test="login-link">
                 <Link to="/">Já tem uma conta? Faça login!</Link>
             </h5>
         </FormContainer>

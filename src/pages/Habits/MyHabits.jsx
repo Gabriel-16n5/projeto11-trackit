@@ -7,8 +7,7 @@ function MyHabits(){
         <>
             <MyHabitsContainer>
                 <h2>Meus hábitos</h2>
-                <button>+</button>
-                
+                <button data-test="habit-create-btn">+</button>
             </MyHabitsContainer>
             <CreateHabit />
         </>

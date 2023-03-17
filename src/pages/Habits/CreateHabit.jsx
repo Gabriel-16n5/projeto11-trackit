@@ -11,14 +11,14 @@ function CreateHabit(){
 
     return(
     <>
-        <CreateHabitContainer >
-                <input placeholder="nome do hábito" />
+        <CreateHabitContainer data-test="habit-create-container">
+                <input data-test="habit-name-input" placeholder="nome do hábito" />
                     <Botoes>
-                        {diasDaSemana.map((d, index) => <Buttons bt={btClicado.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
+                        {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={btClicado.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
                     </Botoes>
                     <div>
-                        <Confirma color={"white"} letra={"#52B6FF"}>Cancelar</Confirma>
-                        <Confirma color={"#52B6FF;"} letra={"white"} >Salvar</Confirma>
+                        <Confirma data-test="habit-create-cancel-btn" color={"white"} letra={"#52B6FF"}>Cancelar</Confirma>
+                        <Confirma data-test="habit-create-save-btn" color={"#52B6FF;"} letra={"white"} >Salvar</Confirma>
                     </div>
         </CreateHabitContainer>
 

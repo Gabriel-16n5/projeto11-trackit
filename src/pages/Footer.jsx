@@ -11,15 +11,15 @@ function Footer(){
 
 
     return(
-        <RodaPe>
-            <Link to="/habitos"><h3>Hábitos</h3></Link>
-            <Link to="/hoje"><div >
+        <RodaPe data-test="menu">
+            <Link to="/habitos"><h3 data-test="habit-link">Hábitos</h3></Link>
+            <Link to="/hoje"><div data-test="today-link">
                 <CircularProgressbar value={progress} text={`Hoje`} 
                 styles={ buildStyles({   pathColor: `rgba(255, 255, 255, 1)`,
                 textColor: 'white',
                 trailColor: '#52B6FF'})}/>
             </div></Link>
-            <Link to="/historico"><h3>Histórico</h3></Link>
+            <Link to="/historico"><h3 data-test="history-link">Histórico</h3></Link>
         </RodaPe>
     )
 }

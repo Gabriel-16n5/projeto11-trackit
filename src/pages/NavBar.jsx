@@ -5,7 +5,7 @@ import React, { useContext } from "react"
 function NavBar(){
     const {photo} = useContext(MyContext)
     return(
-        <Header>
+        <Header data-test="header">
             <a>TrackIt</a>
             <img src={photo} alt="foto perfil" />
         </Header>
@@ -18,7 +18,6 @@ const Header = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
     width: 100%;
     height: 70px;
     left: 0px;

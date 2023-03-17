@@ -33,16 +33,16 @@ function Today(){
         <>
         <NavBar />
             <Hoje>
-                <h1>{now}</h1>
-                <h2>Nenhum hábito concluído ainda</h2>
+                <h1 data-test="today">{now}</h1>
+                <h2 data-test="today-counter">Nenhum hábito concluído ainda</h2>
             </Hoje>
             <HabitContainer>
-                <div>
-                    <h3>Ler 1 capítulo de livro</h3>
-                    <h4>Sequência atual: 3 dias</h4>
-                    <h4>Seu recorde: 5 dias</h4>
+                <div data-test="today-habit-container">
+                    <h3 data-test="today-habit-name">Ler 1 capítulo de livro</h3>
+                    <h4 data-test="today-habit-sequence">Sequência atual: 3 dias</h4>
+                    <h4 data-test="today-habit-record">Seu recorde: 5 dias</h4>
                 </div>
-                <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button><FaCheck /></button></IconContext.Provider>
+                <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button data-test="today-habit-check-btn"><FaCheck /></button></IconContext.Provider>
             </HabitContainer>
         <Footer />
         </>

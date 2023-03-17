@@ -7,7 +7,7 @@ import MyContext from "../context/MyContext.ts"
 
 function Login(){
     const navigate = useNavigate();
-    const {user, setUser, pass, setPass, setPhoto, setToken, token} = useContext(MyContext)
+    const {user, setUser, pass, setPass, setPhoto, setToken} = useContext(MyContext)
 
     function fazerLogin(e){
         e.preventDefault();
@@ -35,22 +35,22 @@ function Login(){
             <h1>TrackIt</h1>
         </>
         <FormContainer onSubmit={fazerLogin}>
-            <input
+            <input data-test="email-input"
             placeholder="email"
             value={user}
             onChange={(e) => {setUser(e.target.value)}}
             />
 
-            <input
+            <input data-test="password-input"
             placeholder="senha"
             value={pass}
             onChange={(e) => {setPass(e.target.value)}}
             />
 
-            <button type="submit">
+            <button data-test="login-btn" type="submit">
                 Entrar
             </button>
-            <h5>
+            <h5 data-test="singup-link">
                <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link> 
             </h5>
         </FormContainer>
