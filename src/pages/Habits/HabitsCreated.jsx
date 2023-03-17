@@ -16,8 +16,8 @@ export default function HabitsCreated(){
     }
 
     return(
-        <HabitsContainer>
-            <Title><h1>Ler 1 capítulo de livro</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span><FaTrashAlt/></span></IconContext.Provider></Title>
+        <HabitsContainer data-test="habit-container">
+            <Title><h1 data-test="habit-name">Ler 1 capítulo de livro</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
             <Botoes>
                     {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={btClicado.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
             </Botoes>
