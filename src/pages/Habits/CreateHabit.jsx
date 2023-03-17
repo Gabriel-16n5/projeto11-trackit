@@ -1,7 +1,10 @@
-import React from "react";
 import styled from "styled-components";
+import axios from "axios"
+import React, { useContext } from "react"
+import MyContext from "/home/gabriel16n5/Desktop/projetinhos/projeto11-trackit/src/pages/MyContext.ts";
 
 function CreateHabit(){
+    const {habitName, setHabitName, habitDays, setHabitDays} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
     const [btClicado, setBtClicado] = React.useState("");
 
@@ -9,10 +12,33 @@ function CreateHabit(){
         setBtClicado([...btClicado, index])
     }
 
+
+
+
+    function createHabit(e){
+        e.preventDefault();
+        const body = {
+                name: "Nome do hábito",
+                days: [1, 3, 5] // segunda, quarta e sexta
+            }
+
+       const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body)
+       promise.then((ok) => {
+       });
+       promise.catch((erro) => console.log(erro.message));
+       promise.catch(() => alert("Deu ruim"));
+    }
+
+
+
     return(
     <>
         <CreateHabitContainer data-test="habit-create-container">
-                <input data-test="habit-name-input" placeholder="nome do hábito" />
+                <input data-test="habit-name-input"
+                placeholder="nome do hábito" 
+                value={habitName}
+                onChange={(e) => {setHabitName(e.target.value)}}
+                />
                     <Botoes>
                         {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={btClicado.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
                     </Botoes>

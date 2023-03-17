@@ -1,9 +1,10 @@
 import axios from "axios"
 import React, { useContext } from "react"
+import MyContext from "./MyContext.ts"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
-import MyContext from "../context/MyContext.ts"
+
 
 function Login(){
     const navigate = useNavigate();

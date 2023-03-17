@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MyContext from "/home/gabriel16n5/Desktop/projetinhos/projeto11-trackit/src/context/MyContext.ts"
+import MyContext from "/home/gabriel16n5/Desktop/projetinhos/projeto11-trackit/src/pages/MyContext.ts";
 import React, { useContext } from "react"
 import { FaTrashAlt} from "react-icons/fa";
 import { IconContext } from "react-icons";

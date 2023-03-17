@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MyContext from "../context/MyContext.ts"
+import MyContext from "./MyContext.ts"
 import React, { useContext } from "react"
 
 function NavBar(){

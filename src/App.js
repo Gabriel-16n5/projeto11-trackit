@@ -6,7 +6,7 @@ import Register from "./pages/Register";
 import Habits from "./pages/Habits/Habits";
 import Historic from "./pages/Historic"
 import Today from "./pages/Today"
-import MyContext from "./context/MyContext.ts"
+import MyContext from "./pages/MyContext.ts"
 
 function App() {
   const [pass, setPass] = React.useState("");
@@ -16,8 +16,11 @@ function App() {
   const [progress, setProgress] = React.useState(50);
   const [token, setToken] = React.useState("");
   const [habit, setHabit] = React.useState("");
+  const [habitName, setHabitName] = React.useState("");
+  const [habitDays, setHabitDays] = React.useState("");
+
   return (
-    <MyContext.Provider value={{ user, setUser, pass, setPass, name, setName, photo, setPhoto, progress, setProgress, token, setToken, habit, setHabit }}>
+    <MyContext.Provider value={{ user, setUser, pass, setPass, name, setName, photo, setPhoto, progress, setProgress, token, setToken, habit, setHabit, habitName, setHabitName, habitDays, setHabitDays }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />

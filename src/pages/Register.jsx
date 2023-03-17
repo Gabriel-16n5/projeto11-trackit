@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import logo from "../assets/Logo.PNG"
-import MyContext from "../context/MyContext.ts"
+import MyContext from "./MyContext.ts"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 

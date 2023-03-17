@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import MyContext from "../context/MyContext.ts"
+import MyContext from "./MyContext.ts"
 import React, { useContext, useEffect } from "react"
 import Footer from "./Footer";
 import NavBar from "./NavBar";
