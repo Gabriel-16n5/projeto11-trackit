@@ -17,7 +17,7 @@ function App() {
   const [token, setToken] = React.useState("");
   const [habit, setHabit] = React.useState("");
   const [habitName, setHabitName] = React.useState("");
-  const [habitDays, setHabitDays] = React.useState("");
+  const [habitDays, setHabitDays] = React.useState([]);
 
   return (
     <MyContext.Provider value={{ user, setUser, pass, setPass, name, setName, photo, setPhoto, progress, setProgress, token, setToken, habit, setHabit, habitName, setHabitName, habitDays, setHabitDays }}>

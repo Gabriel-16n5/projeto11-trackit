@@ -1,50 +1,51 @@
 import styled from "styled-components";
 import axios from "axios"
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import MyContext from "../MyContext.ts"
 
 function CreateHabit(){
-    const {habitName, setHabitName, habitDays, setHabitDays} = useContext(MyContext)
+    const {habitName, setHabitName, habitDays, setHabitDays, token} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
-    const [btClicado, setBtClicado] = React.useState("");
-
     function marcaDIa(index){
-        setBtClicado([...btClicado, index])
+        setHabitDays([...habitDays, index])
     }
-
-
-
 
     function createHabit(e){
         e.preventDefault();
-        const body = {
-                name: "Nome do hábito",
-                days: [1, 3, 5] // segunda, quarta e sexta
-            }
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
 
-       const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body)
-       promise.then((ok) => {
-       });
-       promise.catch((erro) => console.log(erro.message));
-       promise.catch(() => alert("Deu ruim"));
+        const body = {
+            name: habitName,
+            days: habitDays
+        }
+
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
+        promise.then((ok) => {
+            console.log(ok.data)
+        })
+
+        promise.catch((erro) => console.log(erro.response.data))
+        console.log(body)
     }
 
 
 
     return(
     <>
-        <CreateHabitContainer data-test="habit-create-container">
+        <CreateHabitContainer onSubmit={createHabit} data-test="habit-create-container">
                 <input data-test="habit-name-input"
                 placeholder="nome do hábito" 
                 value={habitName}
                 onChange={(e) => {setHabitName(e.target.value)}}
                 />
                     <Botoes>
-                        {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={btClicado.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
+                        {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={habitDays.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
                     </Botoes>
                     <div>
                         <Confirma data-test="habit-create-cancel-btn" color={"white"} letra={"#52B6FF"}>Cancelar</Confirma>
-                        <Confirma data-test="habit-create-save-btn" color={"#52B6FF;"} letra={"white"} >Salvar</Confirma>
+                        <Confirma type="submit" data-test="habit-create-save-btn" color={"#52B6FF;"} letra={"white"} >Salvar</Confirma>
                     </div>
         </CreateHabitContainer>
 
