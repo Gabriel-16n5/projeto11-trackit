@@ -2,21 +2,21 @@ import NavBar from "../NavBar";
 import Footer from "../Footer";
 import styled from "styled-components";
 import MyHabits from "./MyHabits";
-import CreateHabit from "./CreateHabit";
 import HabitsCreated from "./HabitsCreated";
 import React, { useContext } from "react"
 import MyContext from "../MyContext.ts"
+import CreateHabit from "./CreateHabit";
 
 function Habits(){
-    const {habitList} = useContext(MyContext)
+    const {habitList, createHabit} = useContext(MyContext)
     return(
         <>
             <NavBar />
                 <HabitsContainer>          
                     <MyHabits />
                     {habitList === undefined ? "" : <HabitsCreated />}
-                    <CreateHabit />
-                    <SemNada>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</SemNada>
+                    {createHabit=== undefined ? "" : <CreateHabit />}
+                    {habitList === undefined ? <SemNada>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</SemNada> : ""}
                 </HabitsContainer>
             <Footer/>
         </>
@@ -33,7 +33,6 @@ const HabitsContainer = styled.div`
     align-items: center;
 `
 const SemNada = styled.h6`
-    /* display: none; */
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;

@@ -19,9 +19,10 @@ function App() {
   const [habitName, setHabitName] = React.useState("");
   const [habitDays, setHabitDays] = React.useState([]);
   const [habitList, setHabitList] = React.useState(undefined);
+  const [createHabit, setCreateHabit] = React.useState(undefined);
 
   return (
-    <MyContext.Provider value={{ user, setUser, pass, setPass, name, setName, photo, setPhoto, progress, setProgress, token, setToken, habit, setHabit, habitName, setHabitName, habitDays, setHabitDays, habitList, setHabitList }}>
+    <MyContext.Provider value={{ user, setUser, pass, setPass, name, setName, photo, setPhoto, progress, setProgress, token, setToken, habit, setHabit, habitName, setHabitName, habitDays, setHabitDays, habitList, setHabitList, createHabit, setCreateHabit }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />

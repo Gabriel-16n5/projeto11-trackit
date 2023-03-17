@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react"
 import MyContext from "../MyContext.ts"
 
 function CreateHabit(){
-    const {habitName, setHabitName, habitDays, setHabitDays, token, setHabitList} = useContext(MyContext)
+    const {habitName, setHabitName, habitDays, setHabitDays, token, setHabitList, setCreateHabit} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
     function marcaDIa(index){
         setHabitDays([...habitDays, index])
@@ -12,6 +12,7 @@ function CreateHabit(){
 
     function createHabit(e){
         e.preventDefault();
+        setCreateHabit(undefined)
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         }

@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useContext } from "react"
 import styled from "styled-components";
 import CreateHabit from "./CreateHabit";
+import MyContext from "../MyContext.ts"
 
 function MyHabits(){
+    const {setCreateHabit} = useContext(MyContext)
+
+    function createHabit(){
+        setCreateHabit("create")
+    }
+
     return(
         <>
             <MyHabitsContainer>
                 <h2>Meus hábitos</h2>
-                <button data-test="habit-create-btn">+</button>
+                <button onClick={() => createHabit()} data-test="habit-create-btn">+</button>
             </MyHabitsContainer>
         </>
     )
