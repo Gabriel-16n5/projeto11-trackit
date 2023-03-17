@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react"
 import MyContext from "../MyContext.ts"
 
 function CreateHabit(){
-    const {habitName, setHabitName, habitDays, setHabitDays, token} = useContext(MyContext)
+    const {habitName, setHabitName, habitDays, setHabitDays, token, setHabitList} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
     function marcaDIa(index){
         setHabitDays([...habitDays, index])
@@ -23,7 +23,7 @@ function CreateHabit(){
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         promise.then((ok) => {
-            console.log(ok.data)
+            setHabitList(ok.data)
         })
 
         promise.catch((erro) => console.log(erro.response.data))

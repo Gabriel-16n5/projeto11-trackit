@@ -1,18 +1,20 @@
-import React from "react"
 import NavBar from "../NavBar";
 import Footer from "../Footer";
 import styled from "styled-components";
 import MyHabits from "./MyHabits";
 import CreateHabit from "./CreateHabit";
 import HabitsCreated from "./HabitsCreated";
+import React, { useContext } from "react"
+import MyContext from "../MyContext.ts"
 
 function Habits(){
+    const {habitList} = useContext(MyContext)
     return(
         <>
             <NavBar />
                 <HabitsContainer>          
                     <MyHabits />
-                    <HabitsCreated />
+                    {habitList === undefined ? "" : <HabitsCreated />}
                     <CreateHabit />
                     <SemNada>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</SemNada>
                 </HabitsContainer>

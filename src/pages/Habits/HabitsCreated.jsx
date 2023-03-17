@@ -1,27 +1,31 @@
 import styled from "styled-components";
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
+import MyContext from "../MyContext.ts"
 import { FaTrashAlt} from "react-icons/fa";
 import { IconContext } from "react-icons";
-import MyContext from "../MyContext.ts"
+
 
 export default function HabitsCreated(){
-    const {habit, setHabit} = useContext(MyContext)
-
+    const {habitList} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
-    const [btClicado, setBtClicado] = React.useState("");
 
-    function marcaDIa(index){
-        setBtClicado([...btClicado, index])
+    if(habitList === undefined){
+        console.log(habitList)
+    }else{
+        return(
+            <>
+                <HabitsContainer data-test="habit-container">
+                    <Title><h1 data-test="habit-name">{habitList.name}</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
+                    <Botoes>
+                            {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={habitList.days.includes(index)} key={index} >{d}</Buttons>)}
+                    </Botoes>
+                </HabitsContainer>
+            </>
+        )
+
     }
 
-    return(
-        <HabitsContainer data-test="habit-container">
-            <Title><h1 data-test="habit-name">Ler 1 capítulo de livro</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
-            <Botoes>
-                    {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={btClicado.includes(index)} key={index} onClick={() => marcaDIa(index)} >{d}</Buttons>)}
-            </Botoes>
-        </HabitsContainer>
-    )
+
 }
 
 const Botoes = styled.span`
