@@ -9,9 +9,21 @@ import { IconContext } from "react-icons";
 import axios from 'axios';
 
 function Today(){
-    const {token} = useContext(MyContext)
+    const {token, progress, setProgress} = useContext(MyContext)
     const [habits, setHabits] = React.useState([])
-    
+    const [done, setDone] = React.useState(false)
+
+    function doneTask(e){
+        const body = []
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${e}/check`, body ,config)
+        promise.then((ok) => console.log("done"))
+        setDone(e)
+        promise.catch((erro) => console.log(erro.response.data))
+    }
+
     useEffect(() =>{
         const config = {
             headers: { Authorization: `Bearer ${token}`}
@@ -34,16 +46,16 @@ function Today(){
         <NavBar />
             <Hoje>
                 <h1 data-test="today">{now}</h1>
-                <h2 data-test="today-counter">Nenhum hábito concluído ainda</h2>
+                <h2 data-test="today-counter" color={"#BABABA"}>{setHabits.length === 0? "Nenhum hábito concluído ainda": `${progress}% dos hábitos concluidos`}</h2>
             </Hoje>
-            {habits.map((h) =>
-            <HabitContainer>
+            {habits.map((h, i) =>
+            <HabitContainer cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
                 <div data-test="today-habit-container">
-                    <h3 data-test="today-habit-name">{h.name}</h3>
-                    <h4 data-test="today-habit-sequence">{h.currentSequence}</h4>
-                    <h4 data-test="today-habit-record">{h.highestSequence}</h4>
+                    <h3 data-test="today-habit-name">{`${h.name}`}</h3>
+                    <h4 data-test="today-habit-sequence">{`Sequência atual: ${h.currentSequence} dias`}</h4>
+                    <h4 data-test="today-habit-record">{`Seu recorde: ${h.highestSequence} dias`}</h4>
                 </div>
-                <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button data-test="today-habit-check-btn"><FaCheck /></button></IconContext.Provider>
+                <IconContext.Provider data-test="today-habit-check-btn" value={{ color: "#FFFFFF", size: 35 }}><button onClick={() => doneTask(h.id)} ><FaCheck /></button></IconContext.Provider>
             </HabitContainer>
             )}
         <Footer />
@@ -74,7 +86,7 @@ h2{
     font-weight: 400;
     font-size: 17.976px;
     line-height: 22px;
-    color: #BABABA;
+    color: ${props => props.color? "#BABABA" : "#8FC549"}
 }
 `
 
@@ -98,7 +110,7 @@ button{
     height: 69px;
     left: 276px;
     top: 190px;
-    background: #EBEBEB;
+    background: ${props => props.cor};
     border: 1px solid #E7E7E7;
     border-radius: 5px;
 }

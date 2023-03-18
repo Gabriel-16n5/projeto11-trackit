@@ -40,7 +40,7 @@ function CreateHabit(){
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         promise.then((ok) => {
             setCreateHabit(undefined)
-
+            console.log(ok.data)
         })
 
         promise.catch((erro) => {
