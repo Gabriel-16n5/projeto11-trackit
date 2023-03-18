@@ -54,11 +54,11 @@ function Today(){
                 <h2 data-test="today-counter" color={habits.length === 0}>{habits.length === 0? "Nenhum hábito concluído ainda": `${progress}% dos hábitos concluidos`}</h2>
             </Hoje>
             {habits.map((h, i) =>
-            <HabitContainer data-test="today-habit-container" cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
+            <HabitContainer data-test="today-habit-container" por={h.highestSequence > 0 && h.currentSequence === h.highestSequence ? "#8FC549" : "#666666"} dor={h.done === true ? "#8FC549" : "#666666"} cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
                 <div >
                     <h3 data-test="today-habit-name">{`${h.name}`}</h3>
                     <h4 data-test="today-habit-sequence">{`Sequência atual: ${h.currentSequence} dias`}</h4>
-                    <h4 data-test="today-habit-record">{`Seu recorde: ${h.highestSequence} dias`}</h4>
+                    <h5 data-test="today-habit-record">{`Seu recorde: ${h.highestSequence} dias`}</h5>
                 </div>
                 <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button data-test="today-habit-check-btn" onClick={() => doneTask(h.id)} ><FaCheck /></button></IconContext.Provider>
             </HabitContainer>
@@ -130,6 +130,12 @@ h4{
     font-family: 'Lexend Deca';
     font-size: 13px;
     line-height: 16px;
-    color: #666666;
+    color: ${props => props.dor};
+}
+h5{
+    font-family: 'Lexend Deca';
+    font-size: 13px;
+    line-height: 16px;
+    color: ${props => props.por}
 }
 `
