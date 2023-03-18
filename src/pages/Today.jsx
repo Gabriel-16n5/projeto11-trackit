@@ -9,33 +9,22 @@ import { FaCheck } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import axios from 'axios';
 
-function Today(){
-    const {token, progress, setProgress} = useContext(MyContext)
+function Today() {
+    const { token, progress, setProgress } = useContext(MyContext)
     const [habits, setHabits] = React.useState([])
     const [done, setDone] = React.useState(false)
     dayjs.locale('pt-br')
 
-    function doneTask(e){
-        const body = []
+    useEffect(() => {
         const config = {
-            headers: { Authorization: `Bearer ${token}`}
-        }
-        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${e}/check`, body ,config)
-        promise.then((ok) => console.log("done"))
-        setDone(e)
-        promise.catch((erro) => console.log(erro.response.data))
-    }
-
-    useEffect(() =>{
-        const config = {
-            headers: { Authorization: `Bearer ${token}`}
+            headers: { Authorization: `Bearer ${token}` }
         }
 
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
         promise.then((ok) => {
             setHabits(ok.data)
             const forceAtt = habits;
-            const numero = Math.ceil(100/forceAtt.length);
+            const numero = Math.ceil(100 / forceAtt.length);
             setProgress(numero)
             console.log(numero)
         })
@@ -44,26 +33,49 @@ function Today(){
 
     }, [habits])
 
+    function doneTask(e) {
+
+        if (e.done === true) {
+            const body = []
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${e.id}/uncheck`, body, config)
+            promise.then((ok) => console.log("done"))
+            setDone([])
+            promise.catch((erro) => console.log(erro.response.data))
+        } else {
+            const body = []
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${e.id}/check`, body, config)
+            promise.then((ok) => console.log("done"))
+            setDone(e.id)
+            promise.catch((erro) => console.log(erro.response.data))
+        }
+    }
+
 
     let now = dayjs().format('dddd, DD/MM');
-    return(
+    return (
         <>
-        <NavBar />
+            <NavBar />
             <Hoje>
                 <h1 data-test="today">{now}</h1>
-                <h2 data-test="today-counter" color={habits.length === 0}>{habits.length === 0? "Nenhum hábito concluído ainda": `${progress}% dos hábitos concluidos`}</h2>
+                <h2 data-test="today-counter" color={habits.length === 0}>{habits.length === 0 ? "Nenhum hábito concluído ainda" : `${progress}% dos hábitos concluidos`}</h2>
             </Hoje>
             {habits.map((h, i) =>
-            <HabitContainer data-test="today-habit-container" por={h.highestSequence > 0 && h.currentSequence === h.highestSequence ? "#8FC549" : "#666666"} dor={h.done === true ? "#8FC549" : "#666666"} cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
-                <div >
-                    <h3 data-test="today-habit-name">{`${h.name}`}</h3>
-                    <h4 data-test="today-habit-sequence">{`Sequência atual: ${h.currentSequence} dias`}</h4>
-                    <h5 data-test="today-habit-record">{`Seu recorde: ${h.highestSequence} dias`}</h5>
-                </div>
-                <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button data-test="today-habit-check-btn" onClick={() => doneTask(h.id)} ><FaCheck /></button></IconContext.Provider>
-            </HabitContainer>
+                <HabitContainer data-test="today-habit-container" por={h.highestSequence > 0 && h.currentSequence === h.highestSequence ? "#8FC549" : "#666666"} dor={h.done === true ? "#8FC549" : "#666666"} cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
+                    <div >
+                        <h3 data-test="today-habit-name">{`${h.name}`}</h3>
+                        <h4 data-test="today-habit-sequence">{`Sequência atual: ${h.currentSequence} dias`}</h4>
+                        <h5 data-test="today-habit-record">{`Seu recorde: ${h.highestSequence} dias`}</h5>
+                    </div>
+                    <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button data-test="today-habit-check-btn" onClick={() => doneTask(h)} ><FaCheck /></button></IconContext.Provider>
+                </HabitContainer>
             )}
-        <Footer />
+            <Footer />
         </>
     )
 }
@@ -91,7 +103,7 @@ h2{
     font-weight: 400;
     font-size: 17.976px;
     line-height: 22px;
-    color: ${props => props.color? "#BABABA" : "#8FC549"}
+    color: ${props => props.color ? "#BABABA" : "#8FC549"}
 }
 `
 
