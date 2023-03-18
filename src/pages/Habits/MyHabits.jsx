@@ -6,7 +6,7 @@ import axios from "axios";
 import HabitsCreated from "./HabitsCreated";
 
 function MyHabits(){
-    const {setCreateHabit, token, habitList, createHabit, setHabitList} = useContext(MyContext)
+    const {setCreateHabit, token, habitList, createHabit, setHabitList, serverList, setServerList} = useContext(MyContext)
 
 
     useEffect(() => {
@@ -15,8 +15,7 @@ function MyHabits(){
         }
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
         promise.then((ok) => {
-            setHabitList(ok.data)
-            console.log(habitList)
+            setServerList(ok.data)
             
         })
         promise.catch((erro) => console.log(erro.response.data))
@@ -32,7 +31,7 @@ function MyHabits(){
                     <h2>Meus hábitos</h2>
                     <button onClick={() => createHabits()} data-test="habit-create-btn">+</button>
             </MyHabitsContainer>
-            {habitList === undefined ? "" : <HabitsCreated />}
+            {habitList === null ? "" : <HabitsCreated />}
         </>
     )
 }

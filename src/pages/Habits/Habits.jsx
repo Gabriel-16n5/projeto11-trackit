@@ -7,14 +7,14 @@ import MyContext from "../MyContext.ts"
 import CreateHabit from "./CreateHabit";
 
 function Habits(){
-    const {habitList, createHabit} = useContext(MyContext)
+    const {habitList, createHabit, serverList} = useContext(MyContext)
     return(
         <>
             <NavBar />
                 <HabitsContainer>          
                     <MyHabits />
                     {createHabit=== undefined ? "" : <CreateHabit />}
-                    {habitList === undefined ? <SemNada>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</SemNada> : ""}
+                    {habitList === null ? <SemNada>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</SemNada> : ""}
                 </HabitsContainer>
             <Footer/>
         </>

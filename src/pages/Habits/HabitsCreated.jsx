@@ -4,32 +4,45 @@ import MyContext from "../MyContext.ts"
 import { FaTrashAlt} from "react-icons/fa";
 import { IconContext } from "react-icons";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
 export default function HabitsCreated(){
-    const {habitList, token} = useContext(MyContext)
+    const {habitList, setHabitList, token, serverList, setServerList} = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
+    const navigate = useNavigate();
 
 
+    useEffect(() => {
+        console.log(serverList)
+        console.log("dentro do use efect")
+        console.log(habitList)
+        if(serverList.length === 0){
+            setHabitList(null)
+            console.log("ta?")
+        }
+    }, [])
 
-    // useEffect(() => {
-    //     const config = {
-    //         headers: { Authorization: `Bearer ${token}`}
-    //     }
-    //     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
-    //     promise.then((ok) => console.log(ok.data))
-    //     promise.catch((erro) => console.log(erro.response.data))
-    // }, [])
 
+    function del(id){
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        console.log(id)
+        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
+        promise.then((ok) => {
+            console.log(ok.data)
+            console.log("dentro do promisse")
+        })
+    }
 
-
-    if(habitList === undefined){
+    if(habitList === []){
         console.log(habitList)
     }else{
         return(
             <>
-            {habitList.map((a) => 
-                <HabitsContainer data-test="habit-container">
-                    <Title><h1 data-test="habit-name">{a.name}</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
+            {serverList.map((a, i) => 
+                <HabitsContainer key={i} data-test="habit-container">
+                    <Title><h1 data-test="habit-name">{a.name}</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span onClick={() => del(a.id)} data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
                     <Botoes>
                             {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={a.days.includes(index)} key={index} >{d}</Buttons>)}
                     </Botoes>
