@@ -24,6 +24,7 @@ function Login(){
             setPhoto(ok.data.image)
             setToken(ok.data.token)
             navigate("/hoje")
+            console.log(ok.data.token)
        });
        promise.catch((erro) => {
         alert("Deu ruim")

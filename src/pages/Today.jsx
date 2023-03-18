@@ -19,8 +19,8 @@ function Today(){
 
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
         promise.then((ok) => {
-            console.log(ok.data)
             setHabits(ok.data)
+            console.log(ok.data)
         })
 
         promise.catch((erro) => console.log(erro.response.data))
@@ -36,14 +36,16 @@ function Today(){
                 <h1 data-test="today">{now}</h1>
                 <h2 data-test="today-counter">Nenhum hábito concluído ainda</h2>
             </Hoje>
+            {habits.map((h) =>
             <HabitContainer>
                 <div data-test="today-habit-container">
-                    <h3 data-test="today-habit-name">Ler 1 capítulo de livro</h3>
-                    <h4 data-test="today-habit-sequence">Sequência atual: 3 dias</h4>
-                    <h4 data-test="today-habit-record">Seu recorde: 5 dias</h4>
+                    <h3 data-test="today-habit-name">{h.name}</h3>
+                    <h4 data-test="today-habit-sequence">{h.currentSequence}</h4>
+                    <h4 data-test="today-habit-record">{h.highestSequence}</h4>
                 </div>
                 <IconContext.Provider value={{ color: "#FFFFFF", size: 35 }}><button data-test="today-habit-check-btn"><FaCheck /></button></IconContext.Provider>
             </HabitContainer>
+            )}
         <Footer />
         </>
     )
