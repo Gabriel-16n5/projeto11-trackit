@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import 'dayjs/locale/es'
+import 'dayjs/locale/pt-br'
 import MyContext from "./MyContext.ts"
 import React, { useContext, useEffect } from "react"
 import Footer from "./Footer";
@@ -13,7 +13,7 @@ function Today(){
     const {token, progress, setProgress} = useContext(MyContext)
     const [habits, setHabits] = React.useState([])
     const [done, setDone] = React.useState(false)
-    dayjs.locale('es')
+    dayjs.locale('pt-br')
 
     function doneTask(e){
         const body = []
@@ -54,7 +54,7 @@ function Today(){
                 <h2 data-test="today-counter" color={habits.length === 0}>{habits.length === 0? "Nenhum hábito concluído ainda": `${progress}% dos hábitos concluidos`}</h2>
             </Hoje>
             {habits.map((h, i) =>
-            <HabitContainer cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
+            <HabitContainer data-test="today-habit-container" cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
                 <div data-test="today-habit-container">
                     <h3 data-test="today-habit-name">{`${h.name}`}</h3>
                     <h4 data-test="today-habit-sequence">{`Sequência atual: ${h.currentSequence} dias`}</h4>
