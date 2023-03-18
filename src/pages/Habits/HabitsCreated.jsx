@@ -1,38 +1,41 @@
 import styled from "styled-components";
 import React, { useContext, useEffect } from "react"
 import MyContext from "../MyContext.ts"
-import { FaTrashAlt} from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
 
-export default function HabitsCreated(){
-    const {habitList, setHabitList, token, serverList, setServerList} = useContext(MyContext)
+export default function HabitsCreated() {
+    const { habitList, setHabitList, token, serverList, setServerList } = useContext(MyContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
     const navigate = useNavigate();
 
 
-    function del(id){
-        const config = {
-            headers: { Authorization: `Bearer ${token}`}
+    function del(id) {
+        if (window.confirm("Tem certeza que quer apagar?") === true) {
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+            console.log(id)
+            const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
+            promise.then((ok) => {
+            })
         }
-        console.log(id)
-        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
-        promise.then((ok) => {
-        })
+        return
     }
 
-    if(habitList === []){
-    }else{
-        return(
+    if (habitList === []) {
+    } else {
+        return (
             <>
-            {serverList.map((a, i) => 
-                <HabitsContainer key={i} data-test="habit-container">
-                    <Title><h1 data-test="habit-name">{a.name}</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span onClick={() => del(a.id)} data-test="habit-delete-btn"><FaTrashAlt/></span></IconContext.Provider></Title>
-                    <Botoes>
+                {serverList.map((a, i) =>
+                    <HabitsContainer key={i} data-test="habit-container">
+                        <Title><h1 data-test="habit-name">{a.name}</h1><IconContext.Provider value={{ color: "#666666", size: 15 }}><span onClick={() => del(a.id)} data-test="habit-delete-btn"><FaTrashAlt /></span></IconContext.Provider></Title>
+                        <Botoes>
                             {diasDaSemana.map((d, index) => <Buttons data-test="habit-day" bt={a.days.includes(index)} key={index} >{d}</Buttons>)}
-                    </Botoes>
-                </HabitsContainer>
+                        </Botoes>
+                    </HabitsContainer>
                 )}
             </>
         )
