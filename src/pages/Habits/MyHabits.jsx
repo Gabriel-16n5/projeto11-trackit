@@ -9,19 +9,6 @@ function MyHabits(){
     const {setCreateHabit, token, habitList, createHabit, setHabitList, serverList, setServerList} = useContext(MyContext)
 
 
-    useEffect(() => {
-        const config = {
-            headers: { Authorization: `Bearer ${token}`}
-        }
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
-        promise.then((ok) => {
-            setServerList(ok.data)
-            
-        })
-        promise.catch((erro) => console.log(erro.response.data))
-    }, [])
-
-
     function createHabits(){
         setCreateHabit("create")
     }
@@ -31,7 +18,8 @@ function MyHabits(){
                     <h2>Meus hábitos</h2>
                     <button onClick={() => createHabits()} data-test="habit-create-btn">+</button>
             </MyHabitsContainer>
-            {habitList === null ? "" : <HabitsCreated />}
+            {/* {habitList === null ? "" : <HabitsCreated />} */}
+            <HabitsCreated />
         </>
     )
 }

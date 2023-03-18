@@ -2,12 +2,28 @@ import NavBar from "../NavBar";
 import Footer from "../Footer";
 import styled from "styled-components";
 import MyHabits from "./MyHabits";
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import MyContext from "../MyContext.ts"
 import CreateHabit from "./CreateHabit";
+import axios from "axios";
+
+
 
 function Habits(){
-    const {habitList, createHabit, serverList} = useContext(MyContext)
+    const {habitList, createHabit, serverList, setServerList, token} = useContext(MyContext)
+
+    useEffect(() => {
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+        promise.then((ok) => {
+            setServerList(ok.data)
+            console.log(ok.data)
+        })
+        promise.catch((erro) => console.log(erro.response.data))
+    }, [habitList, createHabit, serverList, createHabit])
+
     return(
         <>
             <NavBar />
