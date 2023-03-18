@@ -39,14 +39,11 @@ function CreateHabit(){
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         promise.then((ok) => {
-            console.log(ok.data)
-            // setServerList(ok.data)
             setCreateHabit(undefined)
-            setHabitList(undefined)
+
         })
 
         promise.catch((erro) => {
-            console.log(erro.response.data)
             setCreateHabit(undefined)
         })
         console.log(body)

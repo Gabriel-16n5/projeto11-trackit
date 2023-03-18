@@ -12,17 +12,6 @@ export default function HabitsCreated(){
     const navigate = useNavigate();
 
 
-    useEffect(() => {
-        console.log(serverList)
-        console.log("dentro do use efect")
-        console.log(habitList)
-        if(serverList.length === 0){
-            setHabitList(null)
-            console.log("ta?")
-        }
-    }, [])
-
-
     function del(id){
         const config = {
             headers: { Authorization: `Bearer ${token}`}
@@ -30,13 +19,10 @@ export default function HabitsCreated(){
         console.log(id)
         const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
         promise.then((ok) => {
-            console.log(ok.data)
-            console.log("dentro do promisse")
         })
     }
 
     if(habitList === []){
-        console.log(habitList)
     }else{
         return(
             <>

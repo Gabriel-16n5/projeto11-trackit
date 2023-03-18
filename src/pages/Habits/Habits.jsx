@@ -10,7 +10,7 @@ import axios from "axios";
 
 
 function Habits(){
-    const {habitList, createHabit, serverList, setServerList, token} = useContext(MyContext)
+    const {habitList, createHabit, serverList, setServerList, token, setHabitList} = useContext(MyContext)
 
     useEffect(() => {
         const config = {
@@ -19,10 +19,15 @@ function Habits(){
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
         promise.then((ok) => {
             setServerList(ok.data)
-            console.log(ok.data)
+            if(serverList.length === 0){
+                setHabitList(null)
+            }else{
+                setHabitList(undefined) 
+            }
         })
         promise.catch((erro) => console.log(erro.response.data))
-    }, [habitList, createHabit, serverList, createHabit])
+    }, [habitList, serverList, createHabit])
+    
 
     return(
         <>
