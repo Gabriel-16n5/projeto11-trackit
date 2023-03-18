@@ -13,7 +13,7 @@ function App() {
   const [user, setUser] = React.useState("");
   const [name, setName] = React.useState("");
   const [photo, setPhoto] = React.useState("");
-  const [progress, setProgress] = React.useState(0);
+  const [progress, setProgress] = React.useState([1]);
   const [token, setToken] = React.useState("");
   const [habit, setHabit] = React.useState("");
   const [habitName, setHabitName] = React.useState("");

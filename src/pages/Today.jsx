@@ -32,12 +32,15 @@ function Today(){
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
         promise.then((ok) => {
             setHabits(ok.data)
-            console.log(ok.data)
+            const forceAtt = habits;
+            const numero = Math.ceil(100/forceAtt.length);
+            setProgress(numero)
+            console.log(numero)
         })
 
         promise.catch((erro) => console.log(erro.response.data))
 
-    }, [])
+    }, [habits])
 
 
     let now = dayjs().format('dddd, DD/MM');
@@ -46,7 +49,7 @@ function Today(){
         <NavBar />
             <Hoje>
                 <h1 data-test="today">{now}</h1>
-                <h2 data-test="today-counter" color={"#BABABA"}>{setHabits.length === 0? "Nenhum hábito concluído ainda": `${progress}% dos hábitos concluidos`}</h2>
+                <h2 data-test="today-counter" color={habits.length === 0}>{habits.length === 0? "Nenhum hábito concluído ainda": `${progress}% dos hábitos concluidos`}</h2>
             </Hoje>
             {habits.map((h, i) =>
             <HabitContainer cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
