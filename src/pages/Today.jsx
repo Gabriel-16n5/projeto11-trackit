@@ -55,7 +55,7 @@ function Today(){
             </Hoje>
             {habits.map((h, i) =>
             <HabitContainer data-test="today-habit-container" cor={h.done === true ? "#8FC549" : "#E7E7E7"} key={i}>
-                <div data-test="today-habit-container">
+                <div >
                     <h3 data-test="today-habit-name">{`${h.name}`}</h3>
                     <h4 data-test="today-habit-sequence">{`Sequência atual: ${h.currentSequence} dias`}</h4>
                     <h4 data-test="today-habit-record">{`Seu recorde: ${h.highestSequence} dias`}</h4>
